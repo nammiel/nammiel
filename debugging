@@ -1,0 +1,235 @@
+
+import java.util.*;
+public class Arrays {
+    public static void main(String args[]){
+        
+        int option;
+        
+            Scanner sc = new Scanner(System.in);
+            
+        int[] array = new int[10];
+            // initializing array
+          System.out.println("Enter 10 numbers"); 
+        // prompts the user to input 10 numbers
+        for(int i = 0; i < array.length; i++){
+            System.out.print("Enter your number " + (i + 1) + " :");
+             array[i]= sc.nextInt();
+            // loop for 10 times
+        }
+        do{
+        System.out.println("Choose an option ");
+        System.out.println("1. Display Array. ");
+        System.out.println("2. Display postion of the Max and Min number. ");
+        System.out.println("3. Display how many numbers above average.");
+        System.out.println("4. Display Array in ascending order.");
+        System.out.println("5. Search a specific value.");
+        System.out.println("6. Reverse order of the array.");
+        System.out.println("7. Insert a new value.");
+        System.out.println("8. Delete a value.");
+        System.out.println("9. Exit");
+           
+        option = sc.nextInt();
+        
+        switch(option){
+            case 1 :
+                displayArray(array);
+                break;
+            
+            case 2 :
+                MinMax(array);
+                 break;
+            
+            case 3 :
+                displayAverage(array);
+                 break;
+            
+            case 6 :
+                reverseArray(array);
+                 break;
+            
+            case 4 :
+                ascendingOrder(array);
+                break;
+            
+            case 5 :
+                findIndex(array);
+                break;
+            
+            case 7 : 
+                insertValue(array);
+                break;
+            case 8 :
+                deleteValue(array);
+                break;
+            
+            case 0 :
+                System.out.println("Exiting...");
+                break;
+            default: 
+                
+                break;
+            
+            }
+        
+        }  while(option != 0);
+      
+        
+    }
+
+    public static void displayArray(int[] array){
+        
+    
+        System.out.print("(");
+        
+        for(int i = 0; i < array.length; i++ ){
+            System.out.print(array[i] + ", ");
+        }
+        System.out.print(")");
+    }
+    
+    public static void MinMax(int[] array){
+        int    max = array[0],
+               min = array[0];
+        for(int i = 0; i < array.length; i++){
+            if (array[i] > max){
+                max = array[i];
+            }
+            if (array[i] < min){
+                min = array[i];
+            }
+        }
+        System.out.println(max + " is the largest value." + "At index: "  );
+            System.out.println(min + " is the smallest value." + "At index: ");
+        
+    }
+    
+    public static void displayAverage(int[] array){
+        double total = 0;
+        
+        for( int i = 0; i < array.length; i++){
+            total += array[i];
+        }
+        double average = total / array.length;
+        
+        System.out.println("the average is " + average);
+        
+        double aboveaverage = 0;
+        for(int arrays : array ){
+            if(arrays > average){
+                aboveaverage++;
+            }
+        }
+        System.out.println("there are " +aboveaverage + " that are above average");
+    }
+    
+    public static void reverseArray(int[] array){
+      
+          for(int i = 0; i < 5; i++){
+            int temp = array[i];
+            array[i] = array[array.length -1 - i];
+            array[array.length - 1 -i] = temp;
+          }
+          displayArray(array);
+     
+    }
+    
+    public static void ascendingOrder(int[] array){
+       
+        int size = array.length;
+
+        for (int i = 0; i < size - 1; i++){
+        
+            for (int j = 0; j < size - i - 1; j++){
+                if (array[j] > array[j + 1]) {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+
+        String currentArr = "(";
+
+        for (int i = 0; i < size; i++){
+            if (i == size - 1){
+                currentArr += array[i] + ")";
+                break;
+            }
+            currentArr += array[i] + ", "; 
+        }
+
+        System.out.println("Sorted array (Ascending): " + currentArr);
+    
+            }
+
+     public static void findIndex(int[] array){
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter value to find: ");
+        int searchValue = sc.nextInt();
+        int index = -1;
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == searchValue){
+                index = i;
+                break;
+            }
+        }
+        if(index != -1){
+            System.out.println("Value " + searchValue + " is found at index: " + index + ".");
+        }else{
+            System.out.println("Value " + searchValue + " is not found in the array.");
+        }
+     
+     }
+    
+     public static void insertValue(int[] array){
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the index (0-9) to insert a new value: ");
+        int index = scanner.nextInt();
+        System.out.print("Enter the new value to insert: ");
+        int newValue = scanner.nextInt();
+
+       
+        if (index < 0 || index > 9) {
+            System.out.println("Invalid index! Please enter an index between 0 and 9.");
+        } else {
+           
+            for (int i = 9; i > index; i--) {
+                array[i] = array[i - 1];
+            }
+
+            array[index] = newValue;
+
+           
+            System.out.println("Modified array after insertion:");
+            displayArray(array);
+        }
+       
+    }
+    
+    public static void deleteValue(int[] array){
+        
+        Scanner scanner = new Scanner(System.in);
+        
+
+        System.out.print("Enter the index (0-9) of the value to remove: ");
+        int index = scanner.nextInt();
+
+        if (index < 0 || index > 9) {
+            System.out.println("Invalid index! Please enter an index between 0 and 9.");
+        } else {
+           
+            for (int i = index; i < 9; i++) {
+                array[i] = array[i + 1];
+            }
+            array[index] = 0; 
+
+       
+            System.out.println("Modified array after removal:");
+            displayArray(array);
+        }
+      
+    }
+}   
