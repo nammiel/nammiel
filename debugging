@@ -233,3 +233,113 @@ public class Arrays {
       
     }
 }   
+
+
+=============================================================================
+
+
+import java.util.*;
+
+public class Unit3Lab{
+    public static void main(String[] args){
+        
+
+        int option;
+                do{
+                  Scanner sc = new Scanner(System.in);
+                      
+              System.out.println("Choose an option"  );
+               System.out.println("1. Check Number value.");
+                System.out.println("2. Check Character type.");
+                 System.out.println("3. Display largest Number.");
+                    
+                    option = sc.nextInt();
+                    
+                    switch(option){
+                        
+                        case 1 :
+                            numCheck();
+                            break;
+                        
+                        case 2 :
+                            checkCharacter();
+                            break;
+                        case 3 :
+                            highValue();
+                            break;
+          
+                        
+                        case 4 :
+                        System.out.println("Exiting...");
+                            break; 
+
+                         default:
+                            break;
+                    }
+                }while(option != 4);
+        } 
+    public static void numCheck(){
+        Scanner sc = new Scanner(System.in);
+        double number;
+        
+        System.out.println("Enter number");
+         number = sc.nextDouble();
+        
+         
+         if(number == (0)){
+            System.out.println(number + " is a zero.");
+        }
+         else if(number > 0){
+   System.out.println(number + " is a positive integer.");
+        }else if (number < 0) {
+            System.out.println(number + " is a negative integer.");
+        }     
+        }
+    
+    
+    public static void checkCharacter(){
+        Scanner sc = new Scanner(System.in);
+        char input;
+        System.out.print("Enter symbol: ");
+        input = sc.nextLine().charAt(0);
+        
+         if(Character.isLetter(input)){
+            System.out.println(input + " is a letter in the alphabet.");
+        }else if(Character.isDigit(input)){
+            System.out.println(input + " is a digit.");
+            
+        }else{
+            System.out.println(input + " is a special character.");
+        }
+      
+    }
+    public static void highValue(){
+        
+        Scanner sc = new Scanner(System.in);
+        
+        double num1, num2, num3;
+        System.out.println("Enter three numbers.");
+        
+        System.out.println("Enter first number: ");
+        num1 = sc.nextDouble();
+        
+        System.out.println("Enter second number: ");
+        num2 = sc.nextDouble();
+        
+        System.out.println("Enter third number: ");
+        num3 = sc.nextDouble();
+        
+        double max = 0;
+        
+        if(num1 >= num2 && num1 >= num3){
+             max = num1;
+        }else if(num2 >= num1 && num2 >= num3){
+             max = num2;
+        }else{
+             max = num3;
+        }        
+        System.out.println("The greatest number is: " + max);             
+    }
+}
+    
+    
