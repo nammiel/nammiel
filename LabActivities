@@ -392,20 +392,10 @@ public class Unit3LabAct {
              max = num2;
         }else{
              max = num3;
-        }
-        
-        System.out.println("The greatest number is: " + max);
-        
-        
+        }        
+        System.out.println("The greatest number is: " + max);               
     }
 }
-        
-        
-        
-    
-        
-
-   //int[] array = new int[3];
     
     
 
