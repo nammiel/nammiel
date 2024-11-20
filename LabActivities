@@ -205,7 +205,7 @@ public class arrays {
             }
         }
         if(index != -1){
-            System.out.println("Value " + searchValue + " is found at index: " + index + ".");
+            System.out.println("Value " + searchValue + "       is found at index: " + index + ".");
         }else{
             System.out.println("Value " + searchValue + " is not found in the array.");
         }
@@ -288,7 +288,7 @@ public class grades {
     average = totalgrade / subject;
     
     System.out.println(average);
-}
+    }
 }
 
 =======================================================
@@ -302,14 +302,14 @@ public class Unit3LabAct {
         
         char character;
         do{
-            Scanner sc = new Scanner(System.in);
+          Scanner sc = new Scanner(System.in);
         
-            int option;
+     int option;
             
-            System.out.println("Choose an option"  );
-            System.out.println("1. Check Number value.");
-            System.out.println("2. Check Character type.");
-            System.out.println("3. Display largest Number. ");
+      System.out.println("Choose an option"  );
+       System.out.println("1. Check Number value.");
+        System.out.println("2. Check Character type.");
+         System.out.println("3. Display largest Number.");
             
             option = sc.nextInt();
             
@@ -346,9 +346,8 @@ public class Unit3LabAct {
             System.out.println(number + " is a zero.");
         }
          else if(number > 0){
-            System.out.println(number + " is a positive integer.");
-        }else if (number < 0){
-            System.out.println(number + " is a negative integer.");
+   System.out.println(number + " is a positive integer.");
+        }else if (number < 0)              System.out.println(number + " is a negative integer.");
         }
     }
     
