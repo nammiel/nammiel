@@ -1,6 +1,6 @@
-
+package Program;
 import java.util.*;
-public class Arrays {
+public class arrays {
     public static void main(String args[]){
         
         int option;
@@ -27,8 +27,7 @@ public class Arrays {
         System.out.println("7. Insert a new value.");
         System.out.println("8. Delete a value.");
         System.out.println("9. Exit");
-           
-        option = sc.nextInt();
+            option = sc.nextInt();
         
         switch(option){
             case 1 :
@@ -55,32 +54,29 @@ public class Arrays {
                 findIndex(array);
                 break;
             
-            case 7 : 
-                insertValue(array);
+            case 7 :
+            System.out.print("Enter the value to add: ");
+                    int newValue = sc.nextInt();
+                    array = addValueToArray(array, newValue);
                 break;
+            
             case 8 :
                 deleteValue(array);
                 break;
             
-            case 0 :
+            case 9 :
                 System.out.println("Exiting...");
                 break;
-            default: 
-                
+            default:
                 break;
-            
             }
-        
-        }  while(option != 0);
-      
-        
+        }  while(option != 9);
     }
-
+    
     public static void displayArray(int[] array){
         
-    
+        System.out.print("Your numbers are :");
         System.out.print("(");
-        
         for(int i = 0; i < array.length; i++ ){
             System.out.print(array[i] + ", ");
         }
@@ -89,22 +85,26 @@ public class Arrays {
     
     public static void MinMax(int[] array){
         int    max = array[0],
-               min = array[0];
+               min = array[0],
+        maxIndex= 0,
+        minIndex = 0;
+        
         for(int i = 0; i < array.length; i++){
             if (array[i] > max){
                 max = array[i];
+                maxIndex = i;
             }
             if (array[i] < min){
                 min = array[i];
+                minIndex = i;
             }
         }
-        System.out.println(max + " is the largest value." + "At index: "  );
-            System.out.println(min + " is the smallest value." + "At index: ");
-        
+        System.out.println(max + " is the maximum value at index "+ maxIndex);
+            System.out.println(min +" is the minimum value at index" + minIndex );
     }
     
     public static void displayAverage(int[] array){
-        double total = 0;
+        int total = 0;
         
         for( int i = 0; i < array.length; i++){
             total += array[i];
@@ -113,7 +113,7 @@ public class Arrays {
         
         System.out.println("the average is " + average);
         
-        double aboveaverage = 0;
+        int aboveaverage = 0;
         for(int arrays : array ){
             if(arrays > average){
                 aboveaverage++;
@@ -123,49 +123,32 @@ public class Arrays {
     }
     
     public static void reverseArray(int[] array){
-      
-          for(int i = 0; i < 5; i++){
-            int temp = array[i];
-            array[i] = array[array.length -1 - i];
-            array[array.length - 1 -i] = temp;
+        int left = 0;
+        int right = array.length - 1;
+            
+        while(left < right){
+            int temp = left;
+                array[left] = right;
+                array[right] = temp;
+            
+            left++;
+            right--;
           }
-          displayArray(array);
-     
+        for (int number : array) {
+            System.out.print(number + " ");
+        }
     }
     
     public static void ascendingOrder(int[] array){
-       
-        int size = array.length;
-
-        for (int i = 0; i < size - 1; i++){
-        
-            for (int j = 0; j < size - i - 1; j++){
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                }
-            }
-        }
-
-        String currentArr = "(";
-
-        for (int i = 0; i < size; i++){
-            if (i == size - 1){
-                currentArr += array[i] + ")";
-                break;
-            }
-            currentArr += array[i] + ", "; 
-        }
-
-        System.out.println("Sorted array (Ascending): " + currentArr);
+        Arrays.sort(array);
+        for(int arr : array){
+            System.out.print(arr + ", ");
+        }    
+    }
     
-            }
-
-     public static void findIndex(int[] array){
+    public static void findIndex(int[] array){
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("Enter value to find: ");
         int searchValue = sc.nextInt();
         int index = -1;
         for(int i = 0; i < array.length; i++){
@@ -179,167 +162,38 @@ public class Arrays {
         }else{
             System.out.println("Value " + searchValue + " is not found in the array.");
         }
-     
-     }
+    }
     
-     public static void insertValue(int[] array){
-        
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Enter the index (0-9) to insert a new value: ");
-        int index = scanner.nextInt();
-        System.out.print("Enter the new value to insert: ");
-        int newValue = scanner.nextInt();
-
-       
-        if (index < 0 || index > 9) {
-            System.out.println("Invalid index! Please enter an index between 0 and 9.");
-        } else {
-           
-            for (int i = 9; i > index; i--) {
-                array[i] = array[i - 1];
-            }
-
-            array[index] = newValue;
-
-           
-            System.out.println("Modified array after insertion:");
-            displayArray(array);
-        }
-       
+    public static int[] addValueToArray(int[] array, int newValue) {
+        int[] newArray = new int[array.length + 1];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+        newArray[array.length] = newValue;
+        return newArray;
     }
     
     public static void deleteValue(int[] array){
         
         Scanner scanner = new Scanner(System.in);
         
-
+        // Prompt user for the index to remove
         System.out.print("Enter the index (0-9) of the value to remove: ");
         int index = scanner.nextInt();
 
+        // Check if the index is valid
         if (index < 0 || index > 9) {
             System.out.println("Invalid index! Please enter an index between 0 and 9.");
         } else {
-           
+            // Shift elements to the left to fill the gap
             for (int i = index; i < 9; i++) {
                 array[i] = array[i + 1];
             }
-            array[index] = 0; 
+            // Set the last element to a default value (optional)
+            array[9] = 0; // or you can leave it as is
 
-       
+            // Display the modified array
             System.out.println("Modified array after removal:");
             displayArray(array);
         }
-      
     }
 }   
 
-
-=============================================================================
-
-
-import java.util.*;
-
-public class Unit3Lab{
-    public static void main(String[] args){
-        
-
-        int option;
-                do{
-                  Scanner sc = new Scanner(System.in);
-                      
-              System.out.println("Choose an option"  );
-               System.out.println("1. Check Number value.");
-                System.out.println("2. Check Character type.");
-                 System.out.println("3. Display largest Number.");
-                    
-                    option = sc.nextInt();
-                    
-                    switch(option){
-                        
-                        case 1 :
-                            numCheck();
-                            break;
-                        
-                        case 2 :
-                            checkCharacter();
-                            break;
-                        case 3 :
-                            highValue();
-                            break;
-          
-                        
-                        case 4 :
-                        System.out.println("Exiting...");
-                            break; 
-
-                         default:
-                            break;
-                    }
-                }while(option != 4);
-        } 
-    public static void numCheck(){
-        Scanner sc = new Scanner(System.in);
-        double number;
-        
-        System.out.println("Enter number");
-         number = sc.nextDouble();
-        
-         
-         if(number == (0)){
-            System.out.println(number + " is a zero.");
-        }
-         else if(number > 0){
-   System.out.println(number + " is a positive integer.");
-        }else if (number < 0) {
-            System.out.println(number + " is a negative integer.");
-        }     
-        }
-    
-    
-    public static void checkCharacter(){
-        Scanner sc = new Scanner(System.in);
-        char input;
-        System.out.print("Enter symbol: ");
-        input = sc.nextLine().charAt(0);
-        
-         if(Character.isLetter(input)){
-            System.out.println(input + " is a letter in the alphabet.");
-        }else if(Character.isDigit(input)){
-            System.out.println(input + " is a digit.");
-            
-        }else{
-            System.out.println(input + " is a special character.");
-        }
-      
-    }
-    public static void highValue(){
-        
-        Scanner sc = new Scanner(System.in);
-        
-        double num1, num2, num3;
-        System.out.println("Enter three numbers.");
-        
-        System.out.println("Enter first number: ");
-        num1 = sc.nextDouble();
-        
-        System.out.println("Enter second number: ");
-        num2 = sc.nextDouble();
-        
-        System.out.println("Enter third number: ");
-        num3 = sc.nextDouble();
-        
-        double max = 0;
-        
-        if(num1 >= num2 && num1 >= num3){
-             max = num1;
-        }else if(num2 >= num1 && num2 >= num3){
-             max = num2;
-        }else{
-             max = num3;
-        }        
-        System.out.println("The greatest number is: " + max);             
-    }
-}
-    
-    
