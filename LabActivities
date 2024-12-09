@@ -401,29 +401,33 @@ public class Unit3LabAct {
 ======≈===================================================
 
 
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 import java.util.*;
 
 public class TaskScheduler {
     private PriorityQueue<Task> tasklist;
           Scanner sc;
-    
+
     public TaskScheduler(){
         // Everything inside this object are accesed by the whole code inside class TaskScheduler
         tasklist = new PriorityQueue<>(Comparator.comparing(Task::getDeadline));
         // ^ Will automatically sort the task based the deadline of each task in ascending order
         sc = new Scanner(System.in);
     }
-    
-    public void addTask(){
+
+    public void addTask(String description, String deadline, int priority){
         
         // A method for adding new task
         
         System.out.println("Enter description of the task:");
-        String description = sc.nextLine();
+        // String description = sc.nextLine();
         System.out.println("Enter deadline: (YYYY-MM-DD)");
-        String deadline = sc.nextLine();
+        // String deadline = sc.nextLine();
         System.out.println("Enter Priority(1-10, 1 being highest priority):");
-        int priority = sc.nextInt();
+        // int priority = sc.nextInt();
         // ^ prompts the type the information of the new task to
         //   the "Task" and will be stored in "newTask" ^
         
@@ -461,33 +465,76 @@ public class TaskScheduler {
         return sortedTasks;
     }
 // The code below is a class to make it easier to store and retrive the tasks description,deadline, and priority
-    
-    
-   static class Task{
+
+     static class Task{
         private String description;
         private String deadline;
         private int priority;
-        
+
         public Task(String description, String deadline, int priority){
             this.description = description;
             this.deadline = deadline;
             this.priority = priority;
         }
-        
+
         public String getDescription(){
             return description;
         }
-        
+
         public String getDeadline(){
             return deadline;
         }
-        
+
         public int getPriority(){
             return priority;
         }
     }
+
+    @Test
+    public void testAddTask() {
+
+        // Simulating user input using Scanner
+        addTask("Complete project", "2024-12-10", 2);
+        addTask("Study for exams", "2024-12-09", 1);
+        addTask("Attend meeting", "2024-12-12", 3);
+
+        List<Task> tasks = viewTasksByPriority();
+        
+        // Check if tasks are sorted by priority
+        assertEquals("Study for exams", tasks.get(0).getDescription());
+        assertEquals("Complete project", tasks.get(1).getDescription());
+        assertEquals("Attend meeting", tasks.get(2).getDescription());
+    }
+
+    @Test
+    public void testCompleteTask() {
+
+        addTask("Complete project", "2024-12-10", 2);
+        addTask("Study for exams", "2024-12-09", 1);
+
+        // Complete a task
+        completeTask("Complete project");
+
+        List<Task> tasks = viewTasksByPriority();
+
+        // Verify the task is removed
+        assertEquals(1, tasks.size());
+        assertEquals("Study for exams", tasks.get(0).getDescription());
+    }
+
+    @Test
+    public void testViewTasksByPriority() {
+
+        addTask("Complete project", "2024-12-10", 2);
+        addTask("Study for exams", "2024-12-09", 1);
+        addTask("Attend meeting", "2024-12-12", 3);
+
+        List<Task> tasks = viewTasksByPriority();
+
+        // Check tasks are sorted by priority
+        assertEquals(3, tasks.size());
+        assertEquals(1, tasks.get(0).getPriority());
+        assertEquals(2, tasks.get(1).getPriority());
+        assertEquals(3, tasks.get(2).getPriority());
+    }
 }
-
-    
-
-
