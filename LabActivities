@@ -397,6 +397,97 @@ public class Unit3LabAct {
     }
 }
     
+
+======≈===================================================
+
+
+import java.util.*;
+
+public class TaskScheduler {
+    private PriorityQueue<Task> tasklist;
+          Scanner sc;
+    
+    public TaskScheduler(){
+        // Everything inside this object are accesed by the whole code inside class TaskScheduler
+        tasklist = new PriorityQueue<>(Comparator.comparing(Task::getDeadline));
+        // ^ Will automatically sort the task based the deadline of each task in ascending order
+        sc = new Scanner(System.in);
+    }
+    
+    public void addTask(){
+        
+        // A method for adding new task
+        
+        System.out.println("Enter description of the task:");
+        String description = sc.nextLine();
+        System.out.println("Enter deadline: (YYYY-MM-DD)");
+        String deadline = sc.nextLine();
+        System.out.println("Enter Priority(1-10, 1 being highest priority):");
+        int priority = sc.nextInt();
+        // ^ prompts the type the information of the new task to
+        //   the "Task" and will be stored in "newTask" ^
+        
+           Task newTask = new Task(description, deadline, priority);
+        //^ Initializing the task to be added ^
+        
+            tasklist.add(newTask);
+        // ^ Adds 'newTask' to tasklist ^
+    }
+    
+    public void completeTask(String description){
+        //^ A method to remove a task if completed
+        Task taskRemove = null;
+        for(Task task: tasklist){
+            if(task.getDescription().equals(description))
+                // ^ Checks if if the description of the object matches a given description(case-sensitive)
+            {
+                taskRemove = task;
+                // Assigns the matching task object to the variable taskRemove
+                // taskRemove is the task to be removed
+                break;
+            }
+        }
+        if(taskRemove != null){
+            tasklist.remove(taskRemove);
+            System.out.println("Task removed");
+        }else{
+            System.out.println("Task not found");
+        }
+    }
+    
+   public List<Task> viewTasksByPriority() {
+        List<Task> sortedTasks = new ArrayList<>(tasklist);
+        sortedTasks.sort(Comparator.comparingInt(Task::getPriority));
+        return sortedTasks;
+    }
+// The code below is a class to make it easier to store and retrive the tasks description,deadline, and priority
+    
+    
+   static class Task{
+        private String description;
+        private String deadline;
+        private int priority;
+        
+        public Task(String description, String deadline, int priority){
+            this.description = description;
+            this.deadline = deadline;
+            this.priority = priority;
+        }
+        
+        public String getDescription(){
+            return description;
+        }
+        
+        public String getDeadline(){
+            return deadline;
+        }
+        
+        public int getPriority(){
+            return priority;
+        }
+    }
+}
+
     
 
 
